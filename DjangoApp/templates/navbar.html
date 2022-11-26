@@ -1,0 +1,18 @@
+{% autoescape on %}
+<nav class="navbar navbar-expand-lg" style="background-color: #8a1538">
+    <a class="navbar-brand" href="{% url 'lista_mundiales' %}" style="color: #fdffe6;">
+      <img src="/media/worldcup-icon.png" alt="" width="40" height="55">
+      FIFA WORLD CUP
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{% url 'lista_mundiales' %}" style="color: #fdffe6;">Mundiales <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="{% url 'lista_selecciones' %}" style="color: #fdffe6;">Selecciones</a>
+        <a class="nav-item nav-link" href="{% url 'lista_podios' %}" style="color: #fdffe6;">Podios</a>
+      </div>
+    </div>
+</nav>
+{% endautoescape %}

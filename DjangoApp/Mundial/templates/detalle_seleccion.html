@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="margin: 40px;">
+    <div class="card" style="margin: 40px;">
+        <h1>Alineación de {{ nombre_seleccion.0.0 }} {{ nombre_torneo }}</h1>
+        <table class="table table-striped table-bordered shadow-lg">
+            <thead>
+                <tr>
+                    <th scope="col" style="color: #202124;">Nombre</th>
+                    <th scope="col" style="color: #202124;">Apellido</th>
+                    <th scope="col" style="color: #202124;">Fecha Nacmiento</th>
+                    <th scope="col" style="color: #202124;">Posición</th>
+
+                </tr>
+            </thead>
+            {% for jugador in lista_jugadores %}
+            <tbody>
+                <tr>
+                    <td>{{ jugador.0.2 }}</td>
+                    <td>{{ jugador.0.1 }}</td>
+                    <td>{{ jugador.0.3 }}</td>
+                    <td>{{ jugador.0.6 }}</td>
+
+                </tr>
+            </tbody>
+            {% empty %}
+                <p>No hay jugadores registrados</p>
+            {% endfor %}
+        </table>
+        <h3>Entrenador</h3>
+        <table class="table table-bordered shadow-lg">
+            <thead>
+                <tr>
+                    <th scope="col" style="color: #202124;">Nombre</th>
+                    <th scope="col" style="color: #202124;">Apellido</th>
+                    <th scope="col" style="color: #202124;">País Origen</th>
+                </tr>
+            </thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ entrenador.0.2}}</td>
+                    <td>{{ entrenador.0.1 }}</td>
+                    <td>{{ entrenador.0.3 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" style="margin: 40px;">
+        <h1 class="card-title">Partidos de {{ nombre_seleccion.0.0 }} en {{ nombre_torneo }}</h1>
+        <table class="table table-striped table-bordered shadow-lg">
+            <thead>
+                <tr>
+                    <th scope="col" style="color: #202124;">Partido</th>
+                    <th scope="col" style="color: #202124;">Etapa</th>
+                    <th scope="col" style="color: #202124;">Fecha</th>
+                    <th scope="col" style="color: #202124;">Estadio</th>
+                    <th scope="col" style="color: #202124;">Ciudad</th>
+                    <th scope="col" style="color: #202124;">País</th>
+                    <th scope="col" style="color: #202124;">Equipo Casa</th>
+                    <th scope="col" style="color: #202124;">Goles Casa</th>
+                    <th scope="col" style="color: #202124;">Goles Visitante</th>
+                    <th scope="col" style="color: #202124;">Equipo Visitante</th>
+                </tr>
+            </thead>
+            {% for partido in lista_partidos %}
+            <tbody>
+                <tr>
+                    <td>{{ partido.2 }}</td>
+                    <td>{{ partido.3 }}</td>
+                    <td>{{ partido.4 }}</td>
+                    <td>{{ partido.5 }}</td>
+                    <td>{{ partido.6 }}</td>
+                    <td>{{ partido.7 }}</td>
+                    <td>{{ partido.9 }}</td>
+                    <td>{{ partido.12 }}</td>
+                    <td>{{ partido.13 }}</td>
+                    <td>{{ partido.11 }}</td>
+                </tr>
+            {% empty %}
+                <p>No hay partidos registrados</p>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

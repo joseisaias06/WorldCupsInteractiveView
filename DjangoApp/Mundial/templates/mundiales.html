@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="margin: 40px;">
+    <h1 class="card-title"> Lista de Mundiales de la FIFA</h1>
+    <table class="table table-striped table-bordered shadow-lg">
+        <thead>
+            <tr>
+                <th scope="col" style="color: #202124;">Año De Celebración</th>
+                <th scope="col" style="color: #202124;">Fecha Inicio</th>
+                <th scope="col" style="color: #202124;">Fecha Fin</th>
+                <th scope="col" style="color: #202124;">País Sede</th>
+                <th scope="col" style="color: #202124;">Selección Ganadora</th>
+                <th scope="col" style="color: #202124;">Cantidad de Países</th>
+
+            </tr>
+        </thead>
+        {% for mundial in lista_mundiales %}
+        <tbody>
+            <tr>
+                <td> <a href="{% url 'detalle_mundial' mundial.0 %}" style="color: #8a1538">{{ mundial.0 }} </a></td>
+                <td>{{ mundial.2 }}</td>
+                <td>{{ mundial.3 }}</td>
+                <td>{{ mundial.4 }}</td>
+                <td>{{ mundial.5 }}</td>
+                <td>{{ mundial.6 }}</td>
+            </tr>
+        </tbody>
+        {% empty %}
+            <p>No hay mundiales registrados</p>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

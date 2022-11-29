@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mundiales` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
-USE `mundiales`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mundiales
@@ -47,6 +45,176 @@ INSERT INTO `arbitro` VALUES ('R-001','Abdel-Fatah','Essam','Egypt','CF-2\r'),('
 UNLOCK TABLES;
 
 --
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `auth_group_permissions` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
+  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add session',6,'add_session'),(22,'Can change session',6,'change_session'),(23,'Can delete session',6,'delete_session'),(24,'Can view session',6,'view_session');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user`
+--
+
+DROP TABLE IF EXISTS `auth_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) COLLATE utf8_bin NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) COLLATE utf8_bin NOT NULL,
+  `first_name` varchar(150) COLLATE utf8_bin NOT NULL,
+  `last_name` varchar(150) COLLATE utf8_bin NOT NULL,
+  `email` varchar(254) COLLATE utf8_bin NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+LOCK TABLES `auth_user` WRITE;
+/*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$390000$53Zhn2OzkUvHwiwvxweLqT$4dO2NTHB4haoMTBhSYMoiGU/Rdb+gOQiIMg/F/zLPhw=','2022-11-25 09:37:07.244081',1,'joseisaias.06','','','',1,1,'2022-11-25 09:36:07.932978');
+/*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+DROP TABLE IF EXISTS `auth_user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `auth_user_groups` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),
+  CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_groups`
+--
+
+LOCK TABLES `auth_user_groups` WRITE;
+/*!40000 ALTER TABLE `auth_user_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_user_user_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `auth_user_user_permissions` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_user_permissions`
+--
+
+LOCK TABLES `auth_user_user_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_user_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_user_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `confederacion`
 --
 
@@ -68,6 +236,117 @@ LOCK TABLES `confederacion` WRITE;
 /*!40000 ALTER TABLE `confederacion` DISABLE KEYS */;
 INSERT INTO `confederacion` VALUES ('CF-1','Asian Football Confederation'),('CF-2','Confederation of African Football'),('CF-3','Confederation of North Central American and Caribbean Association Football'),('CF-4','South American Football Confederation'),('CF-5','Oceania Football Confederation'),('CF-6','Union of European Football Associations');
 /*!40000 ALTER TABLE `confederacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext COLLATE utf8_bin,
+  `object_repr` varchar(200) COLLATE utf8_bin NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext COLLATE utf8_bin NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),
+  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_label` varchar(100) COLLATE utf8_bin NOT NULL,
+  `model` varchar(100) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'sessions','session');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `django_migrations` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) COLLATE utf8_bin NOT NULL,
+  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2022-11-25 09:33:32.931504'),(2,'auth','0001_initial','2022-11-25 09:33:33.273133'),(3,'admin','0001_initial','2022-11-25 09:33:33.361734'),(4,'admin','0002_logentry_remove_auto_add','2022-11-25 09:33:33.368591'),(5,'admin','0003_logentry_add_action_flag_choices','2022-11-25 09:33:33.375286'),(6,'contenttypes','0002_remove_content_type_name','2022-11-25 09:33:33.443225'),(7,'auth','0002_alter_permission_name_max_length','2022-11-25 09:33:33.485260'),(8,'auth','0003_alter_user_email_max_length','2022-11-25 09:33:33.527704'),(9,'auth','0004_alter_user_username_opts','2022-11-25 09:33:33.533915'),(10,'auth','0005_alter_user_last_login_null','2022-11-25 09:33:33.570906'),(11,'auth','0006_require_contenttypes_0002','2022-11-25 09:33:33.573486'),(12,'auth','0007_alter_validators_add_error_messages','2022-11-25 09:33:33.579186'),(13,'auth','0008_alter_user_username_max_length','2022-11-25 09:33:33.621264'),(14,'auth','0009_alter_user_last_name_max_length','2022-11-25 09:33:33.662470'),(15,'auth','0010_alter_group_name_max_length','2022-11-25 09:33:33.704485'),(16,'auth','0011_update_proxy_permissions','2022-11-25 09:33:33.712965'),(17,'auth','0012_alter_user_first_name_max_length','2022-11-25 09:33:33.760898'),(18,'sessions','0001_initial','2022-11-25 09:33:33.788213');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) COLLATE utf8_bin NOT NULL,
+  `session_data` longtext COLLATE utf8_bin NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('0au1yvudg4ot6gcrrq0zxugapbvz0fka','.eJxVjMEOwiAQRP-FsyELFAGP3v0GssCuVA1NSnsy_rtt0oOeJpn3Zt4i4rrUuHaa41jERShx-u0S5ie1HZQHtvsk89SWeUxyV-RBu7xNhV7Xw_07qNjrtvZshqQREgPpgQOkYi14Jq8dnI11W7BWWoHzyiIYBwozYzEUKDgrPl_JNDcC:1oyV8t:XQx2DelmK6y7p9nJsS51MFcjSeD5rP51H37WJduEu6A','2022-12-09 09:37:07.246329');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -94,6 +373,46 @@ LOCK TABLES `entrenador` WRITE;
 /*!40000 ALTER TABLE `entrenador` DISABLE KEYS */;
 INSERT INTO `entrenador` VALUES ('M-001','Acosta','Nelson','Uruguay\r'),('M-002','Adshead','John','England\r'),('M-003','Advocaat','Dick','Netherlands\r'),('M-004','Aguirre','Javier','Mexico\r'),('M-005','Al-Gohari','Mahmoud','Egypt\r'),('M-006','Al-Johar','Nasser','Saudi Arabia\r'),('M-007','Al-Kharashy','Mohammed','Brazil\r'),('M-008','Álamos','Luis','Chile\r'),('M-009','Andersson','Janne','Sweden\r'),('M-010','Andreoli','Franco','Switzerland\r'),('M-011','Antić','Radomir','Serbia\r'),('M-012','Appiah','James Kwesi','Ghana\r'),('M-013','Aragonés','Luis','Spain\r'),('M-014','Arena','Bruce','United States\r'),('M-015','Argauer','Karl','Austria\r'),('M-016','Arsenijević','Milorad','Yugoslavia\r'),('M-017','Azkargorta','Xabier','Spain\r'),('M-018','Baróti','Lajos','Hungary\r'),('M-019','Barreau','Gaston','France\r'),('M-020','Basile','Alfio','Argentina\r'),('M-021','Batteux','Albert','France\r'),('M-022','Bearzot','Enzo','Italy\r'),('M-023','Beattie','Andy','Scotland\r'),('M-024','Beckenbauer','Franz','Germany\r'),('M-025','Beenhakker','Leo','Netherlands\r'),('M-026','Bento','Paulo','Portugal\r'),('M-027','Bergmark','Orvar','Sweden\r'),('M-028','Beskov','Konstantin','Soviet Union\r'),('M-029','Bielsa','Marcelo','Argentina\r'),('M-030','Bilardo','Carlos','Argentina\r'),('M-031','Bingham','Billy','Northern Ireland\r'),('M-032','Blažević','Miroslav','Croatia\r'),('M-033','Blinda','Abdellah','Morocco\r'),('M-034','Blokhin','Oleg','Ukraine\r'),('M-035','Bonev','Hristo','Bulgaria\r'),('M-036','Borhy','Karol','Czechoslovakia\r'),('M-037','Borrás','Omar','Uruguay\r'),('M-038','Bozhkov','Stefan','Bulgaria\r'),('M-039','Bradley','Bob','United States\r'),('M-040','Brown','Craig','Scotland\r'),('M-041','Bru','Francisco','Spain\r'),('M-042','Brückner','Karel','Czech Republic\r'),('M-043','Buccicardi','Alberto','Chile\r'),('M-044','Busby','Matt','Scotland\r'),('M-045','Buschner','Georg','East Germany\r'),('M-046','Butler','Jack','England\r'),('M-047','Calderón','Marcos','Peru\r'),('M-048','Camacho','José Antonio','Spain\r'),('M-049','Cap','Vladislao','Argentina\r'),('M-050','Capello','Fabio','Italy\r'),('M-051','Cárdenas','Raúl','Mexico\r'),('M-052','Carpegiani','Paulo César','Brazil\r'),('M-053','Carrasco','Hernán','Chile\r'),('M-054','Caudron','Raoul','France\r'),('M-055','Cha','Bum-kun','South Korea\r'),('M-056','Charlton','Jack','England\r'),('M-057','Cherchesov','Stanislav','Russia\r'),('M-058','Chetali','Abdelmajid','Tunisia\r'),('M-059','Cissé','Aliou','Senegal\r'),('M-060','Clemente','Javier','Spain\r'),('M-061','Corazzo','Juan Carlos','Uruguay\r'),('M-062','Costa','Flávio','Brazil\r'),('M-063','Coutinho','Cláudio','Brazil\r'),('M-064','Cúper','Héctor','Argentina\r'),('M-065','Czeizler','Lajos','Hungary\r'),('M-066','Dalić','Zlatko','Croatia\r'),('M-067','de Carvalho Rodrigues','Píndaro','Brazil\r'),('M-068','de la Paz Herrera','José','Honduras\r'),('M-069','de Macedo','Evaristo','Brazil\r'),('M-070','del Bosque','Vicente','Spain\r'),('M-071','Derwall','Jupp','Germany\r'),('M-072','Deschamps','Didier','France\r'),('M-073','Didi','not applicable','Brazil\r'),('M-074','Dietz','Károly','Hungary\r'),('M-075','Doherty','Peter','Northern Ireland\r'),('M-076','Domenech','Raymond','France\r'),('M-077','Dujković','Ratomir','Serbia\r'),('M-078','Dunga','not applicable','Brazil\r'),('M-079','Durand Laguna','José','Argentina\r'),('M-080','Eizaguirre','Guillermo','Spain\r'),('M-081','Engel','Jerzy','Poland\r'),('M-082','Ericson','Georg','Sweden\r'),('M-083','Eriksson','Sven-Göran','Sweden\r'),('M-084','Fabbri','Edmondo','Italy\r'),('M-085','Faria','José','Brazil\r'),('M-086','Feola','Vicente','Brazil\r'),('M-087','Ferguson','Alex','Scotland\r'),('M-088','Ferrari','Giovanni','Italy\r'),('M-089','Finke','Volker','Germany\r'),('M-090','Fleitas Solich','Manuel','Paraguay\r'),('M-091','Foni','Alfredo','Italy\r'),('M-092','Gansler','Bob','United States\r'),('M-093','García','Amadeo','Spain\r'),('M-094','Gareca','Ricardo','Argentina\r'),('M-095','Glendenning','Bob','England\r'),('M-096','Glória','Otto','Brazil\r'),('M-097','Gmoch','Jacek','Poland\r'),('M-098','Goethals','Raymond','Belgium\r'),('M-099','Goetinck','Hector','Belgium\r'),('M-100','Gómez','Hernán Darío','Colombia\r'),('M-101','Gonçalves','Oliveira','Angola\r'),('M-102','González','Aurelio','Paraguay\r'),('M-103','Górski','Kazimierz','Poland\r'),('M-104','Gould','David','United States\r'),('M-105','Greenwood','Ron','England\r'),('M-106','Guérin','Henri','France\r'),('M-107','Guimarães','Alexandre','Costa Rica\r'),('M-108','Güneş','Şenol','Turkey\r'),('M-109','Halilhodžić','Vahid','Bosnia and Herzegovina\r'),('M-110','Hallgrímsson','Heimir','Iceland\r'),('M-111','Halvorsen','Asbjørn','Norway\r'),('M-112','Happel','Ernst','Austria\r'),('M-113','Hareide','Åge','Norway\r'),('M-114','Herberger','Sepp','Germany\r'),('M-115','Herbert','Ricki','New Zealand\r'),('M-116','Herrera','Helenio','Argentina\r'),('M-117','Herrera','Miguel','Mexico\r'),('M-118','Hickersberger','Josef','Austria\r'),('M-119','Hidalgo','Michel','France\r'),('M-120','Hiddink','Guus','Netherlands\r'),('M-121','Hierro','Fernando','Spain\r'),('M-122','Hitzfeld','Ottmar','Germany\r'),('M-123','Hoddle','Glenn','England\r'),('M-124','Hodgson','Roy','England\r'),('M-125','Hohberg','Juan','Uruguay\r'),('M-126','Hong','Myung-bo','South Korea\r'),('M-127','Huh','Jung-moo','South Korea\r'),('M-128','Iordănescu','Anghel','Romania\r'),('M-129','Ivanković','Branko','Croatia\r'),('M-130','Jacquet','Aimé','France\r'),('M-131','Janas','Paweł','Poland\r'),('M-132','Jeffrey','William','United States\r'),('M-133','Jenei','Emerich','Romania\r'),('M-134','Johansson','Bo','Sweden\r'),('M-135','Jozić','Mirko','Croatia\r'),('M-136','Kachalin','Gavriil','Soviet Union\r'),('M-137','Kałuża','Józef','Poland\r'),('M-138','Kasperczak','Henryk','Poland\r'),('M-139','Katanec','Srečko','Slovenia\r'),('M-140','Kek','Matjaž','Slovenia\r'),('M-141','Keshi','Stephen','Nigeria\r'),('M-142','Khalef','Mahieddine','Algeria\r'),('M-143','Kim','Ho','South Korea\r'),('M-144','Kim','Jong-hun','North Korea\r'),('M-145','Kim','Jung-nam','South Korea\r'),('M-146','Kim','Yong-sik','South Korea\r'),('M-147','Kimpton','George','England\r'),('M-148','Klinsmann','Jürgen','Germany\r'),('M-149','Kolský','Karel','Czechoslovakia\r'),('M-150','Kovač','Niko','Croatia\r'),('M-151','Kranjčar','Zlatko','Croatia\r'),('M-152','Krstajić','Mladen','Serbia\r'),('M-153','Kubala','Ladislao','Spain\r'),('M-154','Kuhn','Köbi','Switzerland\r'),('M-155','La Volpe','Ricardo','Argentina\r'),('M-156','Lagerbäck','Lars','Sweden\r'),('M-157','Lamouchi','Sabri','France\r'),('M-158','Lapuente','Manuel','Mexico\r'),('M-159','Latzke','Felix','Austria\r'),('M-160','Lazaroni','Sebastião','Brazil\r'),('M-161','Le Guen','Paul','France\r'),('M-162','Le Roy','Claude','France\r'),('M-163','Lee','Hoe-taik','South Korea\r'),('M-164','Leekens','Georges','Belgium\r'),('M-165','Lemerre','Roger','France\r'),('M-166','Lippi','Marcello','Italy\r'),('M-167','Livingstone','Doug','Scotland\r'),('M-168','Lobanovsky','Valeri','Soviet Union\r'),('M-169','Lobanovskyi','Valeriy','Soviet Union\r'),('M-170','López','Juan','Uruguay\r'),('M-171','López Herranz','Antonio','Spain\r'),('M-172','Lorenzo','Juan Carlos','Argentina\r'),('M-173','Lovrić','Ljubomir','Yugoslavia\r'),('M-174','Löw','Joachim','Germany\r'),('M-175','Luque de Serrallonga','Juan','Mexico\r'),('M-176','Maâloul','Nabil','Tunisia\r'),('M-177','MacLeod','Ally','Scotland\r'),('M-178','Maldini','Cesare','Italy\r'),('M-179','Maradona','Diego','Argentina\r'),('M-180','Marko','Jozef','Czechoslovakia\r'),('M-181','Martínez','Roberto','Spain\r'),('M-182','Martino','Gerardo','Argentina\r'),('M-183','Mastenbroek','Johan','Netherlands\r'),('M-184','Maturana','Francisco','Colombia\r'),('M-185','Mazza','Paolo','Italy\r'),('M-186','McCarthy','Mick','Republic of Ireland\r'),('M-187','McCrae','James','Scotland\r'),('M-188','Meisl','Hugo','Austria\r'),('M-189','Meissner','Josef','Czechoslovakia\r'),('M-190','Mejía Barón','Miguel','Mexico\r'),('M-191','Mekhloufi','Rachid','Algeria\r'),('M-192','Menotti','César Luis','Argentina\r'),('M-193','Mészöly','Kálmán','Hungary\r'),('M-194','Metsu','Bruno','France\r'),('M-195','Mezey','György','Hungary\r'),('M-196','Michel','Henri','France\r'),('M-197','Michels','Rinus','Netherlands\r'),('M-198','Mihajlović','Prvoslav','Yugoslavia\r'),('M-199','Miljanić','Miljan','Yugoslavia\r'),('M-200','Millar','Robert','Scotland\r'),('M-201','Milutinović','Bora','Yugoslavia\r'),('M-202','Mladenov','Hristo','Bulgaria\r'),('M-203','Mohajerani','Heshmat','Iran\r'),('M-204','Moreira','Aymoré','Brazil\r'),('M-205','Moreira','Zezé','Brazil\r'),('M-206','Morozov','Nikolai','Soviet Union\r'),('M-207','Müller','Heinrich','Switzerland\r'),('M-208','Muñoz','Miguel','Spain\r'),('M-209','Murphy','Jimmy','Wales\r'),('M-210','Myung','Rye-hyun','North Korea\r'),('M-211','Nádas','Ödön','Hungary\r'),('M-212','Nagy','József','Hungary\r'),('M-213','Nausch','Walter','Austria\r'),('M-214','Nawałka','Adam','Poland\r'),('M-215','Nepomnyashchy','Valery','Soviet Union\r'),('M-216','Nerz','Otto','Germany\r'),('M-217','Niculescu','Angelo','Romania\r'),('M-218','Nishino','Akira','Japan\r'),('M-219','Nordin','Olle','Sweden\r'),('M-220','Novo','Ferruccio','Italy\r'),('M-221','Okada','Takeshi','Japan\r'),('M-222','Olazar','Francisco','Argentina\r'),('M-223','Oliveira','António','Portugal\r'),('M-224','Olsen','Egil','Norway\r'),('M-225','Olsen','Morten','Denmark\r'),('M-226','Onigbinde','Festus','Nigeria\r'),('M-227','Ormond','Willie','Scotland\r'),('M-228','Orth','György','Hungary\r'),('M-229','Osim','Ivica','Yugoslavia\r'),('M-230','Osorio','Juan Carlos','Colombia\r'),('M-231','Pachedzhiev','Georgi','Bulgaria\r'),('M-232','Panagoulias','Alketas','Greece\r'),('M-233','Paquetá','Marcos','Brazil\r'),('M-234','Parreira','Carlos Alberto','Brazil\r'),('M-235','Pascucci','Felipe','Italy\r'),('M-236','Passarella','Daniel','Argentina\r'),('M-237','Pedernera','Adolfo','Argentina\r'),('M-238','Pékerman','José','Argentina\r'),('M-239','Penev','Dimitar','Bulgaria\r'),('M-240','Petković','Ilija','Serbia and Montenegro\r'),('M-241','Petković','Vladimir','Switzerland\r'),('M-242','Petrů','Karel','Czechoslovakia\r'),('M-243','Pettersson','John','Sweden\r'),('M-244','Pfister','Otto','Germany\r'),('M-245','Pibarot','Pierre','France\r'),('M-246','Piechniczek','Antoni','Poland\r'),('M-247','Pimenta','Adhemar','Brazil\r'),('M-248','Pinto','Jorge Luis','Colombia\r'),('M-249','Piontek','Sepp','Germany\r'),('M-250','Pizzi','Juan Antonio','Spain\r'),('M-251','Porta','Roberto','Uruguay\r'),('M-252','Postecoglou','Ange','Australia\r'),('M-253','Pozzo','Vittorio','Italy\r'),('M-254','Prandelli','Cesare','Italy\r'),('M-255','Pretto','Mario','Italy\r'),('M-256','Prohaska','Herbert','Austria\r'),('M-257','Púa','Víctor','Uruguay\r'),('M-258','Puppo','Sandro','Italy\r'),('M-259','Queiroz','Carlos','Portugal\r'),('M-260','Rădulescu','Costel','Romania\r'),('M-261','Rajevac','Milovan','Serbia\r'),('M-262','Ramírez','Óscar','Costa Rica\r'),('M-263','Ramsey','Alf','England\r'),('M-264','Rappan','Karl','Austria\r'),('M-265','Rasic','Rale','Yugoslavia\r'),('M-266','Raynor','George','England\r'),('M-267','Ré','Cayetano','Paraguay\r'),('M-268','Rehhagel','Otto','Germany\r'),('M-269','Renard','Hervé','France\r'),('M-270','Riera','Fernando','Chile\r'),('M-271','Robson','Bobby','England\r'),('M-272','Roca','José Antonio','Mexico\r'),('M-273','Rodríguez','Mauricio','El Salvador\r'),('M-274','Rohr','Gernot','Germany\r'),('M-275','Romantsev','Oleg','Russia\r'),('M-276','Roxburgh','Andy','Scotland\r'),('M-277','Rueda','Reinaldo','Colombia\r'),('M-278','Ruiz','Aníbal','Uruguay\r'),('M-279','Saâdane','Rabah','Algeria\r'),('M-280','Sabella','Alejandro','Argentina\r'),('M-281','Sacchi','Arrigo','Italy\r'),('M-282','Sadyrin','Pavel','Russia\r'),('M-283','Sampaoli','Jorge','Argentina\r'),('M-284','Sampson','Steve','United States\r'),('M-285','Santamaría','José','Uruguay\r'),('M-286','Santana','Telê','Brazil\r'),('M-287','Santibáñez','Luis','Chile\r'),('M-288','Santos','Fernando','Portugal\r'),('M-289','Santrač','Slobodan','Yugoslavia\r'),('M-290','Saucedo','Ulises','Bolivia\r'),('M-291','Săvulescu','Alexandru','Romania\r'),('M-292','Schäfer','Winfried','Germany\r'),('M-293','Schaffer','Alfréd','Hungary\r'),('M-294','Scheffer','Emmanuel','Israel\r'),('M-295','Schmidt','Georg','Austria\r'),('M-296','Schön','Helmut','Germany\r'),('M-297','Scolari','Luiz Felipe','Brazil\r'),('M-298','Sebes','Gusztáv','Hungary\r'),('M-299','Selmi','Ali','Poland\r'),('M-300','Senekowitsch','Helmut','Austria\r'),('M-301','Shin','Tae-yong','South Korea\r'),('M-302','Simões','Renê','Brazil\r'),('M-303','Simonović','Boško','Yugoslavia\r'),('M-304','Söderberg','Tommy','Sweden\r'),('M-305','Solari','Jorge','Argentina\r'),('M-306','Sono','Jomo','South Africa\r'),('M-307','Souayah','Ammar','Tunisia\r'),('M-308','Southgate','Gareth','England\r'),('M-309','Stábile','Guillermo','Argentina\r'),('M-310','Stein','Jock','Scotland\r'),('M-311','Suárez','Luis','Spain\r'),('M-312','Suárez','Luis Fernando','Colombia\r'),('M-313','Suppici','Alberto','Uruguay\r'),('M-314','Sušić','Safet','Bosnia and Herzegovina\r'),('M-315','Svensson','Tommy','Sweden\r'),('M-316','Tabárez','Óscar','Uruguay\r'),('M-317','Talebi','Jalal','Iran\r'),('M-318','Tapia','José','Cuba\r'),('M-319','Tassy','Antoine','Haiti\r'),('M-320','Thys','Guy','Belgium\r'),('M-321','Tim','not applicable','Brazil\r'),('M-322','Tirnanić','Aleksandar','Yugoslavia\r'),('M-323','Tite','not applicable','Brazil\r'),('M-324','Torres','José','Portugal\r'),('M-325','Tramutola','Juan José','Argentina\r'),('M-326','Trapattoni','Giovanni','Italy\r'),('M-327','Tréllez','Ignacio','Mexico\r'),('M-328','Troussier','Philippe','France\r'),('M-329','Uridil','Josef','Romania\r'),('M-330','Valcareggi','Ferruccio','Italy\r'),('M-331','van Basten','Marco','Netherlands\r'),('M-332','van Gaal','Louis','Netherlands\r'),('M-333','Van Himst','Paul','Belgium\r'),('M-334','van Marwijk','Bert','Netherlands\r'),('M-335','Vengloš','Jozef','Czechoslovakia\r'),('M-336','Verbeek','Pim','Netherlands\r'),('M-337','Vial','Octavio','Mexico\r'),('M-338','Vicini','Azeglio','Italy\r'),('M-339','Vidinić','Blagoje','Yugoslavia\r'),('M-340','Viera','Ondino','Uruguay\r'),('M-341','Villalonga','José','Spain\r'),('M-342','Vincent','Jean','France\r'),('M-343','Vinhaes','Luiz','Brazil\r'),('M-344','Vogts','Berti','Germany\r'),('M-345','Völler','Rudi','Germany\r'),('M-346','Vutsov','Ivan','Bulgaria\r'),('M-347','Vytlačil','Rudolf','Czechoslovakia\r'),('M-348','Waiters','Tony','England\r'),('M-349','Walker','Dawson','Scotland\r'),('M-350','Waseige','Robert','Belgium\r'),('M-351','Weiss','Vladimír','Slovakia\r'),('M-352','Westerhof','Clemens','Netherlands\r'),('M-353','Wilmots','Marc','Belgium\r'),('M-354','Winterbottom','Walter','England\r'),('M-355','Zaccheroni','Alberto','Italy\r'),('M-356','Zagallo','Mário','Brazil\r'),('M-357','Zico','not applicable','Brazil\r');
 /*!40000 ALTER TABLE `entrenador` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `grupo`
+--
+
+DROP TABLE IF EXISTS `grupo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `grupo` (
+  `idGrupo` int(11) NOT NULL,
+  `idTorneo` varchar(15) COLLATE utf8_bin NOT NULL,
+  `nombre_etapa` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `nombre_grupo` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `posicion` int(11) DEFAULT NULL,
+  `idSeleccion` varchar(15) COLLATE utf8_bin NOT NULL,
+  `partidos_jugados` int(11) DEFAULT NULL,
+  `partidos_ganados` int(11) DEFAULT NULL,
+  `partidos_empatados` int(11) DEFAULT NULL,
+  `partidos_perdidos` int(11) DEFAULT NULL,
+  `goles_favor` int(11) DEFAULT NULL,
+  `goles_contra` int(11) DEFAULT NULL,
+  `diferencia_goles` int(11) DEFAULT NULL,
+  `puntos` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idGrupo`,`idTorneo`),
+  KEY `fk_Grupo_Torneo1_idx` (`idTorneo`),
+  KEY `fk_Grupo_Seleccion1_idx` (`idSeleccion`),
+  CONSTRAINT `fk_Grupo_Seleccion1` FOREIGN KEY (`idSeleccion`) REFERENCES `seleccion` (`idseleccion`),
+  CONSTRAINT `fk_Grupo_Torneo1` FOREIGN KEY (`idTorneo`) REFERENCES `torneo` (`idtorneo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grupo`
+--
+
+LOCK TABLES `grupo` WRITE;
+/*!40000 ALTER TABLE `grupo` DISABLE KEYS */;
+INSERT INTO `grupo` VALUES (1,'WC-1930','group stage','Group 1',1,'T-03',3,3,0,0,10,4,6,6),(2,'WC-1930','group stage','Group 1',2,'T-13',3,2,0,1,5,3,2,4),(3,'WC-1930','group stage','Group 1',3,'T-28',3,1,0,2,4,3,1,2),(4,'WC-1930','group stage','Group 1',4,'T-44',3,0,0,3,4,13,-9,0),(5,'WC-1930','group stage','Group 2',1,'T-83',2,2,0,0,6,1,5,4),(6,'WC-1930','group stage','Group 2',2,'T-09',2,1,0,1,5,2,3,2),(7,'WC-1930','group stage','Group 2',3,'T-07',2,0,0,2,0,8,-8,0),(8,'WC-1930','group stage','Group 3',1,'T-80',2,2,0,0,5,0,5,4),(9,'WC-1930','group stage','Group 3',2,'T-58',2,1,0,1,3,5,-2,2),(10,'WC-1930','group stage','Group 3',3,'T-54',2,0,0,2,1,4,-3,0),(11,'WC-1930','group stage','Group 4',1,'T-79',2,2,0,0,6,0,6,4),(12,'WC-1930','group stage','Group 4',2,'T-53',2,1,0,1,1,3,-2,2),(13,'WC-1930','group stage','Group 4',3,'T-06',2,0,0,2,0,4,-4,0),(14,'WC-1950','first round','Group 1',1,'T-09',3,2,1,0,8,2,6,5),(15,'WC-1950','first round','Group 1',2,'T-83',3,2,0,1,7,3,4,4),(16,'WC-1950','first round','Group 1',3,'T-72',3,1,1,1,4,6,-2,3),(17,'WC-1950','first round','Group 1',4,'T-44',3,0,0,3,2,10,-8,0),(18,'WC-1950','first round','Group 2',1,'T-70',3,3,0,0,6,1,5,6),(19,'WC-1950','first round','Group 2',2,'T-27',3,1,0,2,2,2,0,2),(20,'WC-1950','first round','Group 2',3,'T-13',3,1,0,2,5,6,-1,2),(21,'WC-1950','first round','Group 2',4,'T-79',3,1,0,2,4,8,-4,2),(22,'WC-1950','first round','Group 3',1,'T-71',2,1,1,0,5,4,1,3),(23,'WC-1950','first round','Group 3',2,'T-39',2,1,0,1,4,3,1,2),(24,'WC-1950','first round','Group 3',3,'T-53',2,0,1,1,2,4,-2,1),(25,'WC-1950','first round','Group 4',1,'T-80',1,1,0,0,8,0,8,2),(26,'WC-1950','first round','Group 4',2,'T-07',1,0,0,1,0,8,-8,0),(27,'WC-1950','final round','Group 1',1,'T-80',3,2,1,0,7,5,2,5),(28,'WC-1950','final round','Group 1',2,'T-09',3,2,0,1,14,4,10,4),(29,'WC-1950','final round','Group 1',3,'T-71',3,1,0,2,6,11,-5,2),(30,'WC-1950','final round','Group 1',4,'T-70',3,0,1,2,4,11,-7,1),(31,'WC-1954','group stage','Group 1',1,'T-09',2,1,1,0,6,1,5,3),(32,'WC-1954','group stage','Group 1',2,'T-83',2,1,1,0,2,1,1,3),(33,'WC-1954','group stage','Group 1',3,'T-28',2,1,0,1,3,3,0,2),(34,'WC-1954','group stage','Group 1',4,'T-44',2,0,0,2,2,8,-6,0),(35,'WC-1954','group stage','Group 2',1,'T-34',2,2,0,0,17,3,14,4),(36,'WC-1954','group stage','Group 2',2,'T-82',2,1,0,1,7,9,-2,2),(37,'WC-1954','group stage','Group 2',3,'T-76',2,1,0,1,8,4,4,2),(38,'WC-1954','group stage','Group 2',4,'T-68',2,0,0,2,0,16,-16,0),(39,'WC-1954','group stage','Group 3',1,'T-80',2,2,0,0,9,0,9,4),(40,'WC-1954','group stage','Group 3',2,'T-05',2,2,0,0,6,0,6,4),(41,'WC-1954','group stage','Group 3',3,'T-20',2,0,0,2,0,7,-7,0),(42,'WC-1954','group stage','Group 3',4,'T-61',2,0,0,2,0,8,-8,0),(43,'WC-1954','group stage','Group 4',1,'T-27',2,1,1,0,6,4,2,3),(44,'WC-1954','group stage','Group 4',2,'T-72',2,1,0,1,2,3,-1,2),(45,'WC-1954','group stage','Group 4',3,'T-39',2,1,0,1,5,3,2,2),(46,'WC-1954','group stage','Group 4',4,'T-06',2,0,1,1,5,8,-3,1),(47,'WC-1958','group stage','Group 1',1,'T-82',3,1,2,0,7,5,2,4),(48,'WC-1958','group stage','Group 1',2,'T-50',3,1,1,1,4,5,-1,3),(49,'WC-1958','group stage','Group 1',3,'T-20',3,1,1,1,8,4,4,3),(50,'WC-1958','group stage','Group 1',4,'T-03',3,1,0,2,5,10,-5,2),(51,'WC-1958','group stage','Group 2',1,'T-28',3,2,0,1,11,7,4,4),(52,'WC-1958','group stage','Group 2',2,'T-83',3,1,2,0,7,6,1,4),(53,'WC-1958','group stage','Group 2',3,'T-53',3,1,1,1,9,12,-3,3),(54,'WC-1958','group stage','Group 2',4,'T-61',3,0,1,2,4,6,-2,1),(55,'WC-1958','group stage','Group 3',1,'T-71',3,2,1,0,5,1,4,5),(56,'WC-1958','group stage','Group 3',2,'T-81',3,0,3,0,2,2,0,3),(57,'WC-1958','group stage','Group 3',3,'T-34',3,1,1,1,6,3,3,3),(58,'WC-1958','group stage','Group 3',4,'T-44',3,0,1,2,1,8,-7,1),(59,'WC-1958','group stage','Group 4',1,'T-09',3,2,1,0,5,0,5,5),(60,'WC-1958','group stage','Group 4',2,'T-69',3,1,1,1,4,4,0,3),(61,'WC-1958','group stage','Group 4',3,'T-27',3,0,3,0,4,4,0,3),(62,'WC-1958','group stage','Group 4',4,'T-05',3,0,1,2,2,7,-5,1),(63,'WC-1962','group stage','Group 1',1,'T-69',3,2,1,0,8,5,3,5),(64,'WC-1962','group stage','Group 1',2,'T-83',3,2,0,1,8,3,5,4),(65,'WC-1962','group stage','Group 1',3,'T-80',3,1,0,2,4,6,-2,2),(66,'WC-1962','group stage','Group 1',4,'T-15',3,0,1,2,5,11,-6,1),(67,'WC-1962','group stage','Group 2',1,'T-82',3,2,1,0,4,1,3,5),(68,'WC-1962','group stage','Group 2',2,'T-13',3,2,0,1,5,3,2,4),(69,'WC-1962','group stage','Group 2',3,'T-39',3,1,1,1,3,2,1,3),(70,'WC-1962','group stage','Group 2',4,'T-72',3,0,0,3,2,8,-6,0),(71,'WC-1962','group stage','Group 3',1,'T-09',3,2,1,0,4,1,3,5),(72,'WC-1962','group stage','Group 3',2,'T-20',3,1,1,1,2,3,-1,3),(73,'WC-1962','group stage','Group 3',3,'T-44',3,1,0,2,3,4,-1,2),(74,'WC-1962','group stage','Group 3',4,'T-70',3,1,0,2,2,3,-1,2),(75,'WC-1962','group stage','Group 4',1,'T-34',3,2,1,0,8,2,6,5),(76,'WC-1962','group stage','Group 4',2,'T-27',3,1,1,1,4,3,1,3),(77,'WC-1962','group stage','Group 4',3,'T-03',3,1,1,1,2,3,-1,3),(78,'WC-1962','group stage','Group 4',4,'T-10',3,0,1,2,1,7,-6,1),(79,'WC-1966','group stage','Group 1',1,'T-27',3,2,1,0,4,0,4,5),(80,'WC-1966','group stage','Group 1',2,'T-80',3,1,2,0,2,1,1,4),(81,'WC-1966','group stage','Group 1',3,'T-44',3,0,2,1,1,3,-2,2),(82,'WC-1966','group stage','Group 1',4,'T-28',3,0,1,2,2,5,-3,1),(83,'WC-1966','group stage','Group 2',1,'T-82',3,2,1,0,7,1,6,5),(84,'WC-1966','group stage','Group 2',2,'T-03',3,2,1,0,4,1,3,5),(85,'WC-1966','group stage','Group 2',3,'T-70',3,1,0,2,4,5,-1,2),(86,'WC-1966','group stage','Group 2',4,'T-72',3,0,0,3,1,9,-8,0),(87,'WC-1966','group stage','Group 3',1,'T-56',3,3,0,0,9,2,7,6),(88,'WC-1966','group stage','Group 3',2,'T-34',3,2,0,1,7,5,2,4),(89,'WC-1966','group stage','Group 3',3,'T-09',3,1,0,2,4,6,-2,2),(90,'WC-1966','group stage','Group 3',4,'T-10',3,0,0,3,1,8,-7,0),(91,'WC-1966','group stage','Group 4',1,'T-69',3,3,0,0,6,1,5,6),(92,'WC-1966','group stage','Group 4',2,'T-49',3,1,1,1,2,4,-2,3),(93,'WC-1966','group stage','Group 4',3,'T-39',3,1,0,2,2,2,0,2),(94,'WC-1966','group stage','Group 4',4,'T-13',3,0,1,2,2,5,-3,1),(95,'WC-1970','group stage','Group 1',1,'T-69',3,2,1,0,6,1,5,5),(96,'WC-1970','group stage','Group 1',2,'T-44',3,2,1,0,5,0,5,5),(97,'WC-1970','group stage','Group 1',3,'T-06',3,1,0,2,4,5,-1,2),(98,'WC-1970','group stage','Group 1',4,'T-26',3,0,0,3,0,9,-9,0),(99,'WC-1970','group stage','Group 2',1,'T-39',3,1,2,0,1,0,1,4),(100,'WC-1970','group stage','Group 2',2,'T-80',3,1,1,1,2,1,1,3),(101,'WC-1970','group stage','Group 2',3,'T-71',3,1,1,1,2,2,0,3),(102,'WC-1970','group stage','Group 2',4,'T-38',3,0,2,1,1,3,-2,2),(103,'WC-1970','group stage','Group 3',1,'T-09',3,3,0,0,8,3,5,6),(104,'WC-1970','group stage','Group 3',2,'T-27',3,2,0,1,2,1,1,4),(105,'WC-1970','group stage','Group 3',3,'T-58',3,1,0,2,4,5,-1,2),(106,'WC-1970','group stage','Group 3',4,'T-20',3,0,0,3,2,7,-5,0),(107,'WC-1970','group stage','Group 4',1,'T-82',3,3,0,0,10,4,6,6),(108,'WC-1970','group stage','Group 4',2,'T-54',3,2,0,1,7,5,2,4),(109,'WC-1970','group stage','Group 4',3,'T-10',3,0,1,2,5,9,-4,1),(110,'WC-1970','group stage','Group 4',4,'T-45',3,0,1,2,2,6,-4,1),(111,'WC-1974','first group stage','Group 1',1,'T-23',3,2,1,0,4,1,3,5),(112,'WC-1974','first group stage','Group 1',2,'T-82',3,2,0,1,4,1,3,4),(113,'WC-1974','first group stage','Group 1',3,'T-13',3,0,2,1,1,2,-1,2),(114,'WC-1974','first group stage','Group 1',4,'T-04',3,0,1,2,0,5,-5,1),(115,'WC-1974','first group stage','Group 2',1,'T-83',3,1,2,0,10,1,9,4),(116,'WC-1974','first group stage','Group 2',2,'T-09',3,1,2,0,3,0,3,4),(117,'WC-1974','first group stage','Group 2',3,'T-61',3,1,2,0,3,1,2,4),(118,'WC-1974','first group stage','Group 2',4,'T-84',3,0,0,3,0,14,-14,0),(119,'WC-1974','first group stage','Group 3',1,'T-46',3,2,1,0,6,1,5,5),(120,'WC-1974','first group stage','Group 3',2,'T-71',3,1,2,0,3,0,3,4),(121,'WC-1974','first group stage','Group 3',3,'T-10',3,0,2,1,2,5,-3,2),(122,'WC-1974','first group stage','Group 3',4,'T-80',3,0,1,2,1,6,-5,1),(123,'WC-1974','first group stage','Group 4',1,'T-55',3,3,0,0,12,3,9,6),(124,'WC-1974','first group stage','Group 4',2,'T-03',3,1,1,1,7,5,2,3),(125,'WC-1974','first group stage','Group 4',3,'T-39',3,1,1,1,5,4,1,3),(126,'WC-1974','first group stage','Group 4',4,'T-32',3,0,0,3,2,14,-12,0),(127,'WC-1974','second group stage','Group A',1,'T-46',3,3,0,0,8,0,8,6),(128,'WC-1974','second group stage','Group A',2,'T-09',3,2,0,1,3,3,0,4),(129,'WC-1974','second group stage','Group A',3,'T-23',3,0,1,2,1,4,-3,1),(130,'WC-1974','second group stage','Group A',4,'T-03',3,0,1,2,2,7,-5,1),(131,'WC-1974','second group stage','Group B',1,'T-82',3,3,0,0,7,2,5,6),(132,'WC-1974','second group stage','Group B',2,'T-55',3,2,0,1,3,2,1,4),(133,'WC-1974','second group stage','Group B',3,'T-71',3,1,0,2,4,6,-2,2),(134,'WC-1974','second group stage','Group B',4,'T-83',3,0,0,3,2,6,-4,0),(135,'WC-1978','first group stage','Group 1',1,'T-39',3,3,0,0,6,2,4,6),(136,'WC-1978','first group stage','Group 1',2,'T-03',3,2,0,1,4,3,1,4),(137,'WC-1978','first group stage','Group 1',3,'T-28',3,1,0,2,5,5,0,2),(138,'WC-1978','first group stage','Group 1',4,'T-34',3,0,0,3,3,8,-5,0),(139,'WC-1978','first group stage','Group 2',1,'T-55',3,2,1,0,4,1,3,5),(140,'WC-1978','first group stage','Group 2',2,'T-82',3,1,2,0,6,0,6,4),(141,'WC-1978','first group stage','Group 2',3,'T-75',3,1,1,1,3,2,1,3),(142,'WC-1978','first group stage','Group 2',4,'T-44',3,0,0,3,2,12,-10,0),(143,'WC-1978','first group stage','Group 3',1,'T-05',3,2,0,1,3,2,1,4),(144,'WC-1978','first group stage','Group 3',2,'T-09',3,1,2,0,2,1,1,4),(145,'WC-1978','first group stage','Group 3',3,'T-70',3,1,1,1,2,2,0,3),(146,'WC-1978','first group stage','Group 3',4,'T-71',3,0,1,2,1,3,-2,1),(147,'WC-1978','first group stage','Group 4',1,'T-54',3,2,1,0,7,2,5,5),(148,'WC-1978','first group stage','Group 4',2,'T-46',3,1,1,1,5,3,2,3),(149,'WC-1978','first group stage','Group 4',3,'T-61',3,1,1,1,5,6,-1,3),(150,'WC-1978','first group stage','Group 4',4,'T-36',3,0,1,2,2,8,-6,1),(151,'WC-1978','second group stage','Group A',1,'T-46',3,2,1,0,9,4,5,5),(152,'WC-1978','second group stage','Group A',2,'T-39',3,1,1,1,2,2,0,3),(153,'WC-1978','second group stage','Group A',3,'T-82',3,0,2,1,4,5,-1,2),(154,'WC-1978','second group stage','Group A',4,'T-05',3,1,0,2,4,8,-4,2),(155,'WC-1978','second group stage','Group B',1,'T-03',3,2,1,0,8,0,8,5),(156,'WC-1978','second group stage','Group B',2,'T-09',3,2,1,0,6,1,5,5),(157,'WC-1978','second group stage','Group B',3,'T-55',3,1,0,2,2,5,-3,2),(158,'WC-1978','second group stage','Group B',4,'T-54',3,0,0,3,0,10,-10,0),(159,'WC-1982','first group stage','Group 1',1,'T-55',3,1,2,0,5,1,4,4),(160,'WC-1982','first group stage','Group 1',2,'T-39',3,0,3,0,2,2,0,3),(161,'WC-1982','first group stage','Group 1',3,'T-11',3,0,3,0,1,1,0,3),(162,'WC-1982','first group stage','Group 1',4,'T-54',3,0,2,1,2,6,-4,2),(163,'WC-1982','first group stage','Group 2',1,'T-82',3,2,0,1,6,3,3,4),(164,'WC-1982','first group stage','Group 2',2,'T-05',3,2,0,1,3,1,2,4),(165,'WC-1982','first group stage','Group 2',3,'T-01',3,2,0,1,5,5,0,4),(166,'WC-1982','first group stage','Group 2',4,'T-13',3,0,0,3,3,8,-5,0),(167,'WC-1982','first group stage','Group 3',1,'T-06',3,2,1,0,3,1,2,5),(168,'WC-1982','first group stage','Group 3',2,'T-03',3,2,0,1,6,2,4,4),(169,'WC-1982','first group stage','Group 3',3,'T-34',3,1,1,1,12,6,6,3),(170,'WC-1982','first group stage','Group 3',4,'T-26',3,0,0,3,1,13,-12,0),(171,'WC-1982','first group stage','Group 4',1,'T-27',3,3,0,0,6,1,5,6),(172,'WC-1982','first group stage','Group 4',2,'T-28',3,1,1,1,6,5,1,3),(173,'WC-1982','first group stage','Group 4',3,'T-20',3,0,2,1,2,4,-2,2),(174,'WC-1982','first group stage','Group 4',4,'T-43',3,0,1,2,2,6,-4,1),(175,'WC-1982','first group stage','Group 5',1,'T-50',3,1,2,0,2,1,1,4),(176,'WC-1982','first group stage','Group 5',2,'T-70',3,1,1,1,3,3,0,3),(177,'WC-1982','first group stage','Group 5',3,'T-83',3,1,1,1,2,2,0,3),(178,'WC-1982','first group stage','Group 5',4,'T-33',3,0,2,1,2,3,-1,2),(179,'WC-1982','first group stage','Group 6',1,'T-09',3,3,0,0,10,2,8,6),(180,'WC-1982','first group stage','Group 6',2,'T-69',3,1,1,1,6,4,2,3),(181,'WC-1982','first group stage','Group 6',3,'T-61',3,1,1,1,8,8,0,3),(182,'WC-1982','first group stage','Group 6',4,'T-47',3,0,0,3,2,12,-10,0),(183,'WC-1982','second group stage','Group A',1,'T-55',2,1,1,0,3,0,3,3),(184,'WC-1982','second group stage','Group A',2,'T-69',2,1,1,0,1,0,1,3),(185,'WC-1982','second group stage','Group A',3,'T-06',2,0,0,2,0,4,-4,0),(186,'WC-1982','second group stage','Group B',1,'T-82',2,1,1,0,2,1,1,3),(187,'WC-1982','second group stage','Group B',2,'T-27',2,0,2,0,0,0,0,2),(188,'WC-1982','second group stage','Group B',3,'T-70',2,0,1,1,1,2,-1,1),(189,'WC-1982','second group stage','Group C',1,'T-39',2,2,0,0,5,3,2,4),(190,'WC-1982','second group stage','Group C',2,'T-09',2,1,0,1,5,4,1,2),(191,'WC-1982','second group stage','Group C',3,'T-03',2,0,0,2,2,5,-3,0),(192,'WC-1982','second group stage','Group D',1,'T-28',2,2,0,0,5,1,4,4),(193,'WC-1982','second group stage','Group D',2,'T-05',2,0,1,1,2,3,-1,1),(194,'WC-1982','second group stage','Group D',3,'T-50',2,0,1,1,3,6,-3,1),(195,'WC-1986','group stage','Group A',1,'T-03',3,2,1,0,6,2,4,5),(196,'WC-1986','group stage','Group A',2,'T-39',3,1,2,0,5,4,1,4),(197,'WC-1986','group stage','Group A',3,'T-10',3,0,2,1,2,4,-2,2),(198,'WC-1986','group stage','Group A',4,'T-68',3,0,1,2,4,7,-3,1),(199,'WC-1986','group stage','Group B',1,'T-44',3,2,1,0,4,2,2,5),(200,'WC-1986','group stage','Group B',2,'T-53',3,1,2,0,4,3,1,4),(201,'WC-1986','group stage','Group B',3,'T-06',3,1,1,1,5,5,0,3),(202,'WC-1986','group stage','Group B',4,'T-37',3,0,0,3,1,4,-3,0),(203,'WC-1986','group stage','Group C',1,'T-69',3,2,1,0,9,1,8,5),(204,'WC-1986','group stage','Group C',2,'T-28',3,2,1,0,5,1,4,5),(205,'WC-1986','group stage','Group C',3,'T-34',3,1,0,2,2,9,-7,2),(206,'WC-1986','group stage','Group C',4,'T-12',3,0,0,3,0,5,-5,0),(207,'WC-1986','group stage','Group D',1,'T-09',3,3,0,0,5,0,5,6),(208,'WC-1986','group stage','Group D',2,'T-70',3,2,0,1,5,2,3,4),(209,'WC-1986','group stage','Group D',3,'T-50',3,0,1,2,2,6,-4,1),(210,'WC-1986','group stage','Group D',4,'T-01',3,0,1,2,1,5,-4,1),(211,'WC-1986','group stage','Group E',1,'T-21',3,3,0,0,9,1,8,6),(212,'WC-1986','group stage','Group E',2,'T-82',3,1,1,1,3,4,-1,3),(213,'WC-1986','group stage','Group E',3,'T-80',3,0,2,1,2,7,-5,2),(214,'WC-1986','group stage','Group E',4,'T-61',3,0,1,2,1,3,-2,1),(215,'WC-1986','group stage','Group F',1,'T-45',3,1,2,0,3,1,2,4),(216,'WC-1986','group stage','Group F',2,'T-27',3,1,1,1,3,1,2,3),(217,'WC-1986','group stage','Group F',3,'T-55',3,1,1,1,1,3,-2,3),(218,'WC-1986','group stage','Group F',4,'T-56',3,1,0,2,2,4,-2,2),(219,'WC-1990','group stage','Group A',1,'T-39',3,3,0,0,4,0,4,6),(220,'WC-1990','group stage','Group A',2,'T-20',3,2,0,1,6,3,3,4),(221,'WC-1990','group stage','Group A',3,'T-05',3,1,0,2,2,3,-1,2),(222,'WC-1990','group stage','Group A',4,'T-79',3,0,0,3,2,8,-6,0),(223,'WC-1990','group stage','Group B',1,'T-11',3,2,0,1,3,5,-2,4),(224,'WC-1990','group stage','Group B',2,'T-58',3,1,1,1,4,3,1,3),(225,'WC-1990','group stage','Group B',3,'T-03',3,1,1,1,3,2,1,3),(226,'WC-1990','group stage','Group B',4,'T-69',3,1,0,2,4,4,0,2),(227,'WC-1990','group stage','Group C',1,'T-09',3,3,0,0,4,1,3,6),(228,'WC-1990','group stage','Group C',2,'T-16',3,2,0,1,3,2,1,4),(229,'WC-1990','group stage','Group C',3,'T-61',3,1,0,2,2,3,-1,2),(230,'WC-1990','group stage','Group C',4,'T-71',3,0,0,3,3,6,-3,0),(231,'WC-1990','group stage','Group D',1,'T-82',3,2,1,0,10,3,7,5),(232,'WC-1990','group stage','Group D',2,'T-83',3,2,0,1,6,5,1,4),(233,'WC-1990','group stage','Group D',3,'T-15',3,1,1,1,3,2,1,3),(234,'WC-1990','group stage','Group D',4,'T-78',3,0,0,3,2,11,-9,0),(235,'WC-1990','group stage','Group E',1,'T-70',3,2,1,0,5,2,3,5),(236,'WC-1990','group stage','Group E',2,'T-06',3,2,0,1,6,3,3,4),(237,'WC-1990','group stage','Group E',3,'T-80',3,1,1,1,2,3,-1,3),(238,'WC-1990','group stage','Group E',4,'T-68',3,0,0,3,1,6,-5,0),(239,'WC-1990','group stage','Group F',1,'T-27',3,1,2,0,2,1,1,4),(240,'WC-1990','group stage','Group F',2,'T-57',3,0,3,0,2,2,0,3),(241,'WC-1990','group stage','Group F',3,'T-46',3,0,3,0,2,2,0,3),(242,'WC-1990','group stage','Group F',4,'T-25',3,0,2,1,1,2,-1,2),(243,'WC-1994','group stage','Group A',1,'T-58',3,2,0,1,5,5,0,6),(244,'WC-1994','group stage','Group A',2,'T-72',3,1,1,1,5,4,1,4),(245,'WC-1994','group stage','Group A',3,'T-79',3,1,1,1,3,3,0,4),(246,'WC-1994','group stage','Group A',4,'T-15',3,1,0,2,4,5,-1,3),(247,'WC-1994','group stage','Group B',1,'T-09',3,2,1,0,6,1,5,7),(248,'WC-1994','group stage','Group B',2,'T-71',3,1,2,0,6,4,2,5),(249,'WC-1994','group stage','Group B',3,'T-59',3,1,0,2,7,6,1,3),(250,'WC-1994','group stage','Group B',4,'T-11',3,0,1,2,3,11,-8,1),(251,'WC-1994','group stage','Group C',1,'T-29',3,2,1,0,5,3,2,7),(252,'WC-1994','group stage','Group C',2,'T-70',3,1,2,0,6,4,2,5),(253,'WC-1994','group stage','Group C',3,'T-68',3,0,2,1,4,5,-1,2),(254,'WC-1994','group stage','Group C',4,'T-07',3,0,1,2,1,4,-3,1),(255,'WC-1994','group stage','Group D',1,'T-48',3,2,0,1,6,2,4,6),(256,'WC-1994','group stage','Group D',2,'T-10',3,2,0,1,6,3,3,6),(257,'WC-1994','group stage','Group D',3,'T-03',3,2,0,1,6,3,3,6),(258,'WC-1994','group stage','Group D',4,'T-31',3,0,0,3,0,10,-10,0),(259,'WC-1994','group stage','Group E',1,'T-44',3,1,1,1,3,3,0,4),(260,'WC-1994','group stage','Group E',2,'T-57',3,1,1,1,2,2,0,4),(261,'WC-1994','group stage','Group E',3,'T-39',3,1,1,1,2,2,0,4),(262,'WC-1994','group stage','Group E',4,'T-51',3,1,1,1,1,1,0,4),(263,'WC-1994','group stage','Group F',1,'T-46',3,2,0,1,4,3,1,6),(264,'WC-1994','group stage','Group F',2,'T-60',3,2,0,1,4,3,1,6),(265,'WC-1994','group stage','Group F',3,'T-06',3,2,0,1,2,1,1,6),(266,'WC-1994','group stage','Group F',4,'T-45',3,0,0,3,2,5,-3,0),(267,'WC-1998','group stage','Group A',1,'T-09',3,2,0,1,6,3,3,6),(268,'WC-1998','group stage','Group A',2,'T-51',3,1,2,0,5,4,1,5),(269,'WC-1998','group stage','Group A',3,'T-45',3,1,1,1,5,5,0,4),(270,'WC-1998','group stage','Group A',4,'T-61',3,0,1,2,2,6,-4,1),(271,'WC-1998','group stage','Group B',1,'T-39',3,2,1,0,7,3,4,7),(272,'WC-1998','group stage','Group B',2,'T-13',3,0,3,0,4,4,0,3),(273,'WC-1998','group stage','Group B',3,'T-05',3,0,2,1,3,4,-1,2),(274,'WC-1998','group stage','Group B',4,'T-11',3,0,2,1,2,5,-3,2),(275,'WC-1998','group stage','Group C',1,'T-28',3,3,0,0,9,1,8,9),(276,'WC-1998','group stage','Group C',2,'T-21',3,1,1,1,3,3,0,4),(277,'WC-1998','group stage','Group C',3,'T-67',3,0,2,1,3,6,-3,2),(278,'WC-1998','group stage','Group C',4,'T-60',3,0,1,2,2,7,-5,1),(279,'WC-1998','group stage','Group D',1,'T-48',3,2,0,1,5,5,0,6),(280,'WC-1998','group stage','Group D',2,'T-53',3,1,2,0,3,1,2,5),(281,'WC-1998','group stage','Group D',3,'T-70',3,1,1,1,8,4,4,4),(282,'WC-1998','group stage','Group D',4,'T-10',3,0,1,2,1,7,-6,1),(283,'WC-1998','group stage','Group E',1,'T-46',3,1,2,0,7,2,5,5),(284,'WC-1998','group stage','Group E',2,'T-44',3,1,2,0,7,5,2,5),(285,'WC-1998','group stage','Group E',3,'T-06',3,0,3,0,3,3,0,3),(286,'WC-1998','group stage','Group E',4,'T-68',3,0,1,2,2,9,-7,1),(287,'WC-1998','group stage','Group F',1,'T-29',3,2,1,0,6,2,4,7),(288,'WC-1998','group stage','Group F',2,'T-83',3,2,1,0,4,2,2,7),(289,'WC-1998','group stage','Group F',3,'T-36',3,1,0,2,2,4,-2,3),(290,'WC-1998','group stage','Group F',4,'T-79',3,0,0,3,1,5,-4,0),(291,'WC-1998','group stage','Group G',1,'T-58',3,2,1,0,4,2,2,7),(292,'WC-1998','group stage','Group G',2,'T-27',3,2,0,1,5,2,3,6),(293,'WC-1998','group stage','Group G',3,'T-15',3,1,0,2,1,3,-2,3),(294,'WC-1998','group stage','Group G',4,'T-75',3,0,1,2,1,4,-3,1),(295,'WC-1998','group stage','Group H',1,'T-03',3,3,0,0,7,0,7,9),(296,'WC-1998','group stage','Group H',2,'T-17',3,2,0,1,4,2,2,6),(297,'WC-1998','group stage','Group H',3,'T-41',3,1,0,2,3,9,-6,3),(298,'WC-1998','group stage','Group H',4,'T-42',3,0,0,3,1,4,-3,0),(299,'WC-2002','group stage','Group A',1,'T-21',3,2,1,0,5,2,3,7),(300,'WC-2002','group stage','Group A',2,'T-62',3,1,2,0,5,4,1,5),(301,'WC-2002','group stage','Group A',3,'T-80',3,0,2,1,4,5,-1,2),(302,'WC-2002','group stage','Group A',4,'T-28',3,0,1,2,0,3,-3,1),(303,'WC-2002','group stage','Group B',1,'T-70',3,3,0,0,9,4,5,9),(304,'WC-2002','group stage','Group B',2,'T-53',3,1,1,1,6,6,0,4),(305,'WC-2002','group stage','Group B',3,'T-67',3,1,1,1,5,5,0,4),(306,'WC-2002','group stage','Group B',4,'T-66',3,0,0,3,2,7,-5,0),(307,'WC-2002','group stage','Group C',1,'T-09',3,3,0,0,11,3,8,9),(308,'WC-2002','group stage','Group C',2,'T-76',3,1,1,1,5,3,2,4),(309,'WC-2002','group stage','Group C',3,'T-16',3,1,1,1,5,6,-1,4),(310,'WC-2002','group stage','Group C',4,'T-14',3,0,0,3,0,9,-9,0),(311,'WC-2002','group stage','Group D',1,'T-68',3,2,1,0,4,1,3,7),(312,'WC-2002','group stage','Group D',2,'T-79',3,1,1,1,5,6,-1,4),(313,'WC-2002','group stage','Group D',3,'T-56',3,1,0,2,6,4,2,3),(314,'WC-2002','group stage','Group D',4,'T-55',3,1,0,2,3,7,-4,3),(315,'WC-2002','group stage','Group E',1,'T-29',3,2,1,0,11,1,10,7),(316,'WC-2002','group stage','Group E',2,'T-57',3,1,2,0,5,2,3,5),(317,'WC-2002','group stage','Group E',3,'T-11',3,1,1,1,2,3,-1,4),(318,'WC-2002','group stage','Group E',4,'T-60',3,0,0,3,0,12,-12,0),(319,'WC-2002','group stage','Group F',1,'T-71',3,1,2,0,4,3,1,5),(320,'WC-2002','group stage','Group F',2,'T-27',3,1,2,0,2,1,1,5),(321,'WC-2002','group stage','Group F',3,'T-03',3,1,1,1,2,2,0,4),(322,'WC-2002','group stage','Group F',4,'T-48',3,0,1,2,1,3,-2,1),(323,'WC-2002','group stage','Group G',1,'T-44',3,2,1,0,4,2,2,7),(324,'WC-2002','group stage','Group G',2,'T-39',3,1,1,1,4,3,1,4),(325,'WC-2002','group stage','Group G',3,'T-17',3,1,0,2,2,3,-1,3),(326,'WC-2002','group stage','Group G',4,'T-24',3,1,0,2,2,4,-2,3),(327,'WC-2002','group stage','Group H',1,'T-42',3,2,1,0,5,2,3,7),(328,'WC-2002','group stage','Group H',2,'T-06',3,1,2,0,6,5,1,5),(329,'WC-2002','group stage','Group H',3,'T-59',3,1,0,2,4,4,0,3),(330,'WC-2002','group stage','Group H',4,'T-75',3,0,1,2,1,5,-4,1),(331,'WC-2006','group stage','Group A',1,'T-29',3,3,0,0,8,2,6,9),(332,'WC-2006','group stage','Group A',2,'T-24',3,2,0,1,5,3,2,6),(333,'WC-2006','group stage','Group A',3,'T-55',3,1,0,2,2,4,-2,3),(334,'WC-2006','group stage','Group A',4,'T-16',3,0,0,3,3,9,-6,0),(335,'WC-2006','group stage','Group B',1,'T-27',3,2,1,0,5,2,3,7),(336,'WC-2006','group stage','Group B',2,'T-71',3,1,2,0,3,2,1,5),(337,'WC-2006','group stage','Group B',3,'T-53',3,1,0,2,2,2,0,3),(338,'WC-2006','group stage','Group B',4,'T-74',3,0,1,2,0,4,-4,1),(339,'WC-2006','group stage','Group C',1,'T-03',3,2,1,0,8,1,7,7),(340,'WC-2006','group stage','Group C',2,'T-46',3,2,1,0,3,1,2,7),(341,'WC-2006','group stage','Group C',3,'T-40',3,1,0,2,5,6,-1,3),(342,'WC-2006','group stage','Group C',4,'T-64',3,0,0,3,2,10,-8,0),(343,'WC-2006','group stage','Group D',1,'T-56',3,3,0,0,5,1,4,9),(344,'WC-2006','group stage','Group D',2,'T-44',3,1,1,1,4,3,1,4),(345,'WC-2006','group stage','Group D',3,'T-02',3,0,2,1,1,2,-1,2),(346,'WC-2006','group stage','Group D',4,'T-36',3,0,1,2,2,6,-4,1),(347,'WC-2006','group stage','Group E',1,'T-39',3,2,1,0,5,1,4,7),(348,'WC-2006','group stage','Group E',2,'T-30',3,2,0,1,4,3,1,6),(349,'WC-2006','group stage','Group E',3,'T-19',3,1,0,2,3,4,-1,3),(350,'WC-2006','group stage','Group E',4,'T-79',3,0,1,2,2,6,-4,1),(351,'WC-2006','group stage','Group F',1,'T-09',3,3,0,0,7,1,6,9),(352,'WC-2006','group stage','Group F',2,'T-04',3,1,1,1,5,5,0,4),(353,'WC-2006','group stage','Group F',3,'T-17',3,0,2,1,2,3,-1,2),(354,'WC-2006','group stage','Group F',4,'T-42',3,0,1,2,2,7,-5,1),(355,'WC-2006','group stage','Group G',1,'T-72',3,2,1,0,4,0,4,7),(356,'WC-2006','group stage','Group G',2,'T-28',3,1,2,0,3,1,2,5),(357,'WC-2006','group stage','Group G',3,'T-68',3,1,1,1,3,4,-1,4),(358,'WC-2006','group stage','Group G',4,'T-73',3,0,0,3,1,6,-5,0),(359,'WC-2006','group stage','Group H',1,'T-70',3,3,0,0,8,1,7,9),(360,'WC-2006','group stage','Group H',2,'T-77',3,2,0,1,5,4,1,6),(361,'WC-2006','group stage','Group H',3,'T-75',3,0,1,2,3,6,-3,1),(362,'WC-2006','group stage','Group H',4,'T-60',3,0,1,2,2,7,-5,1),(363,'WC-2010','group stage','Group A',1,'T-80',3,2,1,0,4,0,4,7),(364,'WC-2010','group stage','Group A',2,'T-44',3,1,1,1,3,2,1,4),(365,'WC-2010','group stage','Group A',3,'T-67',3,1,1,1,3,5,-2,4),(366,'WC-2010','group stage','Group A',4,'T-28',3,0,1,2,1,4,-3,1),(367,'WC-2010','group stage','Group B',1,'T-03',3,3,0,0,7,1,6,9),(368,'WC-2010','group stage','Group B',2,'T-68',3,1,1,1,5,6,-1,4),(369,'WC-2010','group stage','Group B',3,'T-31',3,1,0,2,2,5,-3,3),(370,'WC-2010','group stage','Group B',4,'T-48',3,0,1,2,3,5,-2,1),(371,'WC-2010','group stage','Group C',1,'T-79',3,1,2,0,4,3,1,5),(372,'WC-2010','group stage','Group C',2,'T-27',3,1,2,0,2,1,1,5),(373,'WC-2010','group stage','Group C',3,'T-66',3,1,1,1,3,3,0,4),(374,'WC-2010','group stage','Group C',4,'T-01',3,0,1,2,0,2,-2,1),(375,'WC-2010','group stage','Group D',1,'T-29',3,2,0,1,5,1,4,6),(376,'WC-2010','group stage','Group D',2,'T-30',3,1,1,1,2,2,0,4),(377,'WC-2010','group stage','Group D',3,'T-04',3,1,1,1,3,6,-3,4),(378,'WC-2010','group stage','Group D',4,'T-63',3,1,0,2,2,3,-1,3),(379,'WC-2010','group stage','Group E',1,'T-46',3,3,0,0,5,1,4,9),(380,'WC-2010','group stage','Group E',2,'T-42',3,2,0,1,4,2,2,6),(381,'WC-2010','group stage','Group E',3,'T-21',3,1,0,2,3,6,-3,3),(382,'WC-2010','group stage','Group E',4,'T-11',3,0,0,3,2,5,-3,0),(383,'WC-2010','group stage','Group F',1,'T-53',3,1,2,0,3,1,2,5),(384,'WC-2010','group stage','Group F',2,'T-65',3,1,1,1,4,5,-1,4),(385,'WC-2010','group stage','Group F',3,'T-47',3,0,3,0,2,2,0,3),(386,'WC-2010','group stage','Group F',4,'T-39',3,0,2,1,4,5,-1,2),(387,'WC-2010','group stage','Group G',1,'T-09',3,2,1,0,5,2,3,7),(388,'WC-2010','group stage','Group G',2,'T-56',3,1,2,0,7,0,7,5),(389,'WC-2010','group stage','Group G',3,'T-40',3,1,1,1,4,3,1,4),(390,'WC-2010','group stage','Group G',4,'T-49',3,0,0,3,1,12,-11,0),(391,'WC-2010','group stage','Group H',1,'T-70',3,2,0,1,4,2,2,6),(392,'WC-2010','group stage','Group H',2,'T-13',3,2,0,1,3,2,1,6),(393,'WC-2010','group stage','Group H',3,'T-72',3,1,1,1,1,1,0,4),(394,'WC-2010','group stage','Group H',4,'T-33',3,0,1,2,0,3,-3,1),(395,'WC-2014','group stage','Group A',1,'T-09',3,2,1,0,7,2,5,7),(396,'WC-2014','group stage','Group A',2,'T-44',3,2,1,0,4,1,3,7),(397,'WC-2014','group stage','Group A',3,'T-17',3,1,0,2,6,6,0,3),(398,'WC-2014','group stage','Group A',4,'T-11',3,0,0,3,1,9,-8,0),(399,'WC-2014','group stage','Group B',1,'T-46',3,3,0,0,10,3,7,9),(400,'WC-2014','group stage','Group B',2,'T-13',3,2,0,1,5,3,2,6),(401,'WC-2014','group stage','Group B',3,'T-70',3,1,0,2,4,7,-3,3),(402,'WC-2014','group stage','Group B',4,'T-04',3,0,0,3,3,9,-6,0),(403,'WC-2014','group stage','Group C',1,'T-15',3,3,0,0,9,2,7,9),(404,'WC-2014','group stage','Group C',2,'T-31',3,1,1,1,2,4,-2,4),(405,'WC-2014','group stage','Group C',3,'T-40',3,1,0,2,4,5,-1,3),(406,'WC-2014','group stage','Group C',4,'T-42',3,0,1,2,2,6,-4,1),(407,'WC-2014','group stage','Group D',1,'T-16',3,2,1,0,4,1,3,7),(408,'WC-2014','group stage','Group D',2,'T-80',3,2,0,1,4,4,0,6),(409,'WC-2014','group stage','Group D',3,'T-39',3,1,0,2,2,3,-1,3),(410,'WC-2014','group stage','Group D',4,'T-27',3,0,1,2,2,4,-2,1),(411,'WC-2014','group stage','Group E',1,'T-28',3,2,1,0,8,2,6,7),(412,'WC-2014','group stage','Group E',2,'T-72',3,2,0,1,7,6,1,6),(413,'WC-2014','group stage','Group E',3,'T-24',3,1,1,1,3,3,0,4),(414,'WC-2014','group stage','Group E',4,'T-33',3,0,0,3,1,8,-7,0),(415,'WC-2014','group stage','Group F',1,'T-03',3,3,0,0,6,3,3,9),(416,'WC-2014','group stage','Group F',2,'T-48',3,1,1,1,3,3,0,4),(417,'WC-2014','group stage','Group F',3,'T-08',3,1,0,2,4,4,0,3),(418,'WC-2014','group stage','Group F',4,'T-36',3,0,1,2,1,4,-3,1),(419,'WC-2014','group stage','Group G',1,'T-29',3,2,1,0,7,2,5,7),(420,'WC-2014','group stage','Group G',2,'T-79',3,1,1,1,4,4,0,4),(421,'WC-2014','group stage','Group G',3,'T-56',3,1,1,1,4,7,-3,4),(422,'WC-2014','group stage','Group G',4,'T-30',3,0,1,2,4,6,-2,1),(423,'WC-2014','group stage','Group H',1,'T-06',3,3,0,0,4,1,3,9),(424,'WC-2014','group stage','Group H',2,'T-01',3,1,1,1,6,5,1,4),(425,'WC-2014','group stage','Group H',3,'T-59',3,0,2,1,2,3,-1,2),(426,'WC-2014','group stage','Group H',4,'T-68',3,0,1,2,3,6,-3,1),(427,'WC-2018','group stage','Group A',1,'T-80',3,3,0,0,5,0,5,9),(428,'WC-2018','group stage','Group A',2,'T-59',3,2,0,1,8,4,4,6),(429,'WC-2018','group stage','Group A',3,'T-60',3,1,0,2,2,7,-5,3),(430,'WC-2018','group stage','Group A',4,'T-25',3,0,0,3,2,6,-4,0),(431,'WC-2018','group stage','Group B',1,'T-70',3,1,2,0,6,5,1,5),(432,'WC-2018','group stage','Group B',2,'T-56',3,1,2,0,5,4,1,5),(433,'WC-2018','group stage','Group B',3,'T-36',3,1,1,1,2,2,0,4),(434,'WC-2018','group stage','Group B',4,'T-45',3,0,1,2,2,4,-2,1),(435,'WC-2018','group stage','Group C',1,'T-28',3,2,1,0,3,1,2,7),(436,'WC-2018','group stage','Group C',2,'T-21',3,1,2,0,2,1,1,5),(437,'WC-2018','group stage','Group C',3,'T-54',3,1,0,2,2,2,0,3),(438,'WC-2018','group stage','Group C',4,'T-04',3,0,1,2,2,5,-3,1),(439,'WC-2018','group stage','Group D',1,'T-17',3,3,0,0,7,1,6,9),(440,'WC-2018','group stage','Group D',2,'T-03',3,1,1,1,3,5,-2,4),(441,'WC-2018','group stage','Group D',3,'T-48',3,1,0,2,3,4,-1,3),(442,'WC-2018','group stage','Group D',4,'T-35',3,0,1,2,2,5,-3,1),(443,'WC-2018','group stage','Group E',1,'T-09',3,2,1,0,5,1,4,7),(444,'WC-2018','group stage','Group E',2,'T-72',3,1,2,0,5,4,1,5),(445,'WC-2018','group stage','Group E',3,'T-63',3,1,0,2,2,4,-2,3),(446,'WC-2018','group stage','Group E',4,'T-16',3,0,1,2,2,5,-3,1),(447,'WC-2018','group stage','Group F',1,'T-71',3,2,0,1,5,2,3,6),(448,'WC-2018','group stage','Group F',2,'T-44',3,2,0,1,3,4,-1,6),(449,'WC-2018','group stage','Group F',3,'T-68',3,1,0,2,3,3,0,3),(450,'WC-2018','group stage','Group F',4,'T-29',3,1,0,2,2,4,-2,3),(451,'WC-2018','group stage','Group G',1,'T-06',3,3,0,0,9,2,7,9),(452,'WC-2018','group stage','Group G',2,'T-27',3,2,0,1,8,3,5,6),(453,'WC-2018','group stage','Group G',3,'T-75',3,1,0,2,5,8,-3,3),(454,'WC-2018','group stage','Group G',4,'T-52',3,0,0,3,2,11,-9,0),(455,'WC-2018','group stage','Group H',1,'T-15',3,2,0,1,5,2,3,6),(456,'WC-2018','group stage','Group H',2,'T-42',3,1,1,1,4,4,0,4),(457,'WC-2018','group stage','Group H',3,'T-62',3,1,1,1,4,4,0,4),(458,'WC-2018','group stage','Group H',4,'T-55',3,1,0,2,2,5,-3,3);
+/*!40000 ALTER TABLE `grupo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -257,6 +576,37 @@ INSERT INTO `podio` VALUES (1,'WC-1930','T-80',1),(2,'WC-1930','T-03',2),(3,'WC-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `premio`
+--
+
+DROP TABLE IF EXISTS `premio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `premio` (
+  `idPremio` int(11) NOT NULL,
+  `nombre_premio` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `idTorneo` varchar(15) COLLATE utf8_bin NOT NULL,
+  `idJugador` varchar(20) COLLATE utf8_bin NOT NULL,
+  `nombre_seleccion` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`idPremio`),
+  KEY `fk_Premio_Torneo1_idx` (`idTorneo`),
+  KEY `fk_Premio_Jugador1_idx` (`idJugador`),
+  CONSTRAINT `fk_Premio_Jugador1` FOREIGN KEY (`idJugador`) REFERENCES `jugador` (`idjugador`),
+  CONSTRAINT `fk_Premio_Torneo1` FOREIGN KEY (`idTorneo`) REFERENCES `torneo` (`idtorneo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `premio`
+--
+
+LOCK TABLES `premio` WRITE;
+/*!40000 ALTER TABLE `premio` DISABLE KEYS */;
+INSERT INTO `premio` VALUES (1,'Golden Boot','WC-1930','P-04418','Argentina\r'),(2,'Silver Boot','WC-1930','P-00724','Uruguay\r'),(3,'Bronze Boot','WC-1930','P-09215','United States\r'),(4,'Golden Boot','WC-1934','P-05627','Czechoslovakia\r'),(5,'Silver Boot','WC-1934','P-03649','Germany\r'),(6,'Silver Boot','WC-1934','P-02250','Italy\r'),(7,'Golden Boot','WC-1938','P-03023','Brazil\r'),(8,'Silver Boot','WC-1938','P-08824','Italy\r'),(9,'Silver Boot','WC-1938','P-02366','Hungary\r'),(10,'Silver Boot','WC-1938','P-04466','Hungary\r'),(11,'Golden Boot','WC-1950','P-04188','Brazil\r'),(12,'Silver Boot','WC-1950','P-06216','Uruguay\r'),(13,'Bronze Boot','WC-1950','P-08187','Spain\r'),(14,'Bronze Boot','WC-1950','P-02577','Brazil\r'),(15,'Bronze Boot','WC-1950','P-03281','Spain\r'),(16,'Golden Boot','WC-1954','P-07498','Hungary\r'),(17,'Silver Boot','WC-1954','P-05476','Switzerland\r'),(18,'Silver Boot','WC-1954','P-01070','West Germany\r'),(19,'Silver Boot','WC-1954','P-01943','Austria\r'),(20,'Golden Boot','WC-1958','P-00643','France\r'),(21,'Silver Boot','WC-1958','P-03795','Brazil\r'),(22,'Silver Boot','WC-1958','P-08148','West Germany\r'),(23,'Best Young Player','WC-1958','P-03795','Brazil\r'),(24,'Golden Boot','WC-1962','P-05509','Hungary\r'),(25,'Golden Boot','WC-1962','P-04025','Brazil\r'),(26,'Golden Boot','WC-1962','P-03508','Soviet Union\r'),(27,'Golden Boot','WC-1962','P-00009','Yugoslavia\r'),(28,'Golden Boot','WC-1962','P-06737','Chile\r'),(29,'Golden Boot','WC-1962','P-01219','Brazil\r'),(30,'Best Young Player','WC-1962','P-05509','Hungary\r'),(31,'Golden Boot','WC-1966','P-01633','Portugal\r'),(32,'Silver Boot','WC-1966','P-08039','West Germany\r'),(33,'Bronze Boot','WC-1966','P-04356','West Germany\r'),(34,'Bronze Boot','WC-1966','P-02995','Hungary\r'),(35,'Bronze Boot','WC-1966','P-03234','England\r'),(36,'Bronze Boot','WC-1966','P-06927','Soviet Union\r'),(37,'Best Young Player','WC-1966','P-04356','West Germany\r'),(38,'Golden Boot','WC-1970','P-02483','West Germany\r'),(39,'Silver Boot','WC-1970','P-07877','Brazil\r'),(40,'Bronze Boot','WC-1970','P-01348','Peru\r'),(41,'Best Young Player','WC-1970','P-01348','Peru\r'),(42,'Golden Boot','WC-1974','P-07200','Poland\r'),(43,'Silver Boot','WC-1974','P-07695','Netherlands\r'),(44,'Silver Boot','WC-1974','P-00830','Poland\r'),(45,'Best Young Player','WC-1974','P-02284','Poland\r'),(46,'Golden Ball','WC-1978','P-07202','Argentina\r'),(47,'Silver Ball','WC-1978','P-08703','Italy\r'),(48,'Bronze Ball','WC-1978','P-02014','Brazil\r'),(49,'Golden Boot','WC-1978','P-07202','Argentina\r'),(50,'Silver Boot','WC-1978','P-01348','Peru\r'),(51,'Bronze Boot','WC-1978','P-07325','Netherlands\r'),(52,'Best Young Player','WC-1978','P-05548','Italy\r'),(53,'Golden Ball','WC-1982','P-08703','Italy\r'),(54,'Silver Ball','WC-1982','P-05820','Brazil\r'),(55,'Bronze Ball','WC-1982','P-08975','West Germany\r'),(56,'Golden Boot','WC-1982','P-08703','Italy\r'),(57,'Silver Boot','WC-1982','P-08975','West Germany\r'),(58,'Bronze Boot','WC-1982','P-03653','Brazil\r'),(59,'Best Young Player','WC-1982','P-09137','France\r'),(60,'Golden Ball','WC-1986','P-06516','Argentina\r'),(61,'Silver Ball','WC-1986','P-03585','West Germany\r'),(62,'Bronze Ball','WC-1986','P-06503','Denmark\r'),(63,'Golden Boot','WC-1986','P-02777','England\r'),(64,'Silver Boot','WC-1986','P-07608','Spain\r'),(65,'Silver Boot','WC-1986','P-08699','Brazil\r'),(66,'Silver Boot','WC-1986','P-06516','Argentina\r'),(67,'Best Young Player','WC-1986','P-00872','Belgium\r'),(68,'Golden Ball','WC-1990','P-04373','Italy\r'),(69,'Silver Ball','WC-1990','P-01993','West Germany\r'),(70,'Bronze Ball','WC-1990','P-06516','Argentina\r'),(71,'Golden Boot','WC-1990','P-04373','Italy\r'),(72,'Silver Boot','WC-1990','P-03413','Czechoslovakia\r'),(73,'Bronze Boot','WC-1990','P-02777','England\r'),(74,'Bronze Boot','WC-1990','P-00994','Cameroon\r'),(75,'Best Young Player','WC-1990','P-07639','Yugoslavia\r'),(76,'Golden Ball','WC-1994','P-07489','Brazil\r'),(77,'Silver Ball','WC-1994','P-09078','Italy\r'),(78,'Bronze Ball','WC-1994','P-06855','Bulgaria\r'),(79,'Golden Boot','WC-1994','P-07023','Russia\r'),(80,'Golden Boot','WC-1994','P-06855','Bulgaria\r'),(81,'Bronze Boot','WC-1994','P-08602','Sweden\r'),(82,'Bronze Boot','WC-1994','P-07489','Brazil\r'),(83,'Golden Glove','WC-1994','P-09628','Belgium\r'),(84,'Best Young Player','WC-1994','P-08704','Netherlands\r'),(85,'Golden Ball','WC-1998','P-04601','Brazil\r'),(86,'Silver Ball','WC-1998','P-04705','Croatia\r'),(87,'Bronze Ball','WC-1998','P-01770','France\r'),(88,'Golden Boot','WC-1998','P-04705','Croatia\r'),(89,'Silver Boot','WC-1998','P-05392','Argentina\r'),(90,'Silver Boot','WC-1998','P-04765','Italy\r'),(91,'Golden Glove','WC-1998','P-06099','France\r'),(92,'Best Young Player','WC-1998','P-07705','England\r'),(93,'Golden Ball','WC-2002','P-04412','Germany\r'),(94,'Silver Ball','WC-2002','P-04601','Brazil\r'),(95,'Bronze Ball','WC-2002','P-04298','South Korea\r'),(96,'Golden Boot','WC-2002','P-04601','Brazil\r'),(97,'Silver Boot','WC-2002','P-05239','Germany\r'),(98,'Silver Boot','WC-2002','P-00008','Brazil\r'),(99,'Golden Glove','WC-2002','P-04412','Germany\r'),(100,'Best Young Player','WC-2002','P-06818','United States\r'),(101,'Golden Ball','WC-2006','P-03582','France\r'),(102,'Silver Ball','WC-2006','P-08617','Italy\r'),(103,'Bronze Ball','WC-2006','P-09247','Italy\r'),(104,'Golden Boot','WC-2006','P-05239','Germany\r'),(105,'Silver Boot','WC-2006','P-07013','Argentina\r'),(106,'Bronze Boot','WC-2006','P-04601','Brazil\r'),(107,'Golden Glove','WC-2006','P-00132','Italy\r'),(108,'Best Young Player','WC-2006','P-07597','Germany\r'),(109,'Golden Ball','WC-2010','P-01628','Uruguay\r'),(110,'Silver Ball','WC-2010','P-06373','Netherlands\r'),(111,'Bronze Ball','WC-2010','P-04291','Spain\r'),(112,'Golden Boot','WC-2010','P-00904','Germany\r'),(113,'Silver Boot','WC-2010','P-04291','Spain\r'),(114,'Bronze Boot','WC-2010','P-06373','Netherlands\r'),(115,'Golden Glove','WC-2010','P-06875','Spain\r'),(116,'Best Young Player','WC-2010','P-00904','Germany\r'),(117,'Golden Ball','WC-2014','P-06410','Argentina\r'),(118,'Silver Ball','WC-2014','P-00904','Germany\r'),(119,'Bronze Ball','WC-2014','P-06098','Netherlands\r'),(120,'Golden Boot','WC-2014','P-03676','Colombia\r'),(121,'Silver Boot','WC-2014','P-00904','Germany\r'),(122,'Bronze Boot','WC-2014','P-01576','Brazil\r'),(123,'Golden Glove','WC-2014','P-06554','Germany\r'),(124,'Best Young Player','WC-2014','P-06083','France\r'),(125,'Golden Ball','WC-2018','P-03056','Croatia\r'),(126,'Silver Ball','WC-2018','P-04214','Belgium\r'),(127,'Bronze Ball','WC-2018','P-06140','France\r'),(128,'Golden Boot','WC-2018','P-08448','England\r'),(129,'Silver Boot','WC-2018','P-06140','France\r'),(130,'Bronze Boot','WC-2018','P-02175','Belgium\r'),(131,'Golden Glove','WC-2018','P-05665','Belgium\r'),(132,'Best Young Player','WC-2018','P-02842','France\r');
+/*!40000 ALTER TABLE `premio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `seleccion`
 --
 
@@ -323,4 +673,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-25  2:25:39
+-- Dump completed on 2022-11-28 20:36:33

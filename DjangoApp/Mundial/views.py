@@ -1,15 +1,13 @@
-from django.shortcuts import render
 from django.db import connection
-import codecs
 
 # Create your views here.
 
-from django.views.generic import ListView, DetailView, View, TemplateView
+from django.views.generic import ListView, TemplateView
 
 class ListaMundiales(ListView):
 
     cursor = connection.cursor()
-    cursor.execute(''' SELECT * FROM Mundiales.torneo''')
+    cursor.execute(''' SELECT * FROM mundiales.torneo''')
     row = cursor.fetchall()
 
     context_object_name = 'lista_mundiales'
@@ -25,18 +23,21 @@ class DetalleMundial(TemplateView):
         idTorneo = self.kwargs['idTorneo']
         
         cursor = connection.cursor()
-        cursor.execute(''' SELECT * FROM (SELECT * FROM mundiales.plantilla WHERE idTorneo = '{}') AS plantillas INNER JOIN mundiales.seleccion ON plantillas.idSeleccion = seleccion.idSeleccion'''.format(idTorneo))
+        cursor.execute(''' SELECT * FROM 
+        (SELECT * FROM mundiales.plantilla WHERE idTorneo = '{}') AS plantillas 
+        INNER JOIN mundiales.seleccion ON plantillas.idSeleccion = seleccion.idSeleccion'''.format(idTorneo))
         lista_selecciones = cursor.fetchall()
 
         lista_confederaciones = []
 
         for seleccion in lista_selecciones:
-            cursor.execute(''' SELECT nombreConfederacion FROM Mundiales.confederacion WHERE idCondeferacion = '{}' '''.format(seleccion[8]))
+            cursor.execute(''' SELECT nombreConfederacion FROM mundiales.confederacion WHERE idCondeferacion = '{}' '''.format(seleccion[8]))
             lista_confederaciones.append(cursor.fetchall())
 
         lista_selecciones = zip(lista_selecciones, lista_confederaciones)
 
-        cursor.execute(''' SELECT * FROM (SELECT * FROM mundiales.podio WHERE idTorneo = '{}') AS podios INNER JOIN mundiales.seleccion ON podios.idSeleccion = seleccion.idSeleccion'''.format(idTorneo))
+        cursor.execute(''' SELECT * FROM (SELECT * FROM mundiales.podio WHERE idTorneo = '{}') AS podios 
+        INNER JOIN mundiales.seleccion ON podios.idSeleccion = seleccion.idSeleccion'''.format(idTorneo))
         lista_podios = cursor.fetchall()
 
         context['lista_selecciones'] = lista_selecciones
@@ -87,7 +88,7 @@ class DetalleSeleccion(TemplateView):
 class ListaSeleccciones(ListView):
 
     cursor = connection.cursor()
-    cursor.execute(''' SELECT * FROM (SELECT * FROM mundiales.seleccion) AS selecciones INNER JOIN mundiales.confederacion ON selecciones.idCondeferacion = confederacion.idCondeferacion ''')
+    cursor.execute(''' SELECT * FROM (SELECT * FROM mundiales.seleccion) AS selecciones INNER JOIN mundiales.confederacion ON selecciones.idCondeferacion = confederacion.idCondeferacion ORDER BY nombreSeleccion''')
     row = cursor.fetchall()
 
     context_object_name = 'total_selecciones'
@@ -122,3 +123,41 @@ class ListaPodios(ListView):
     context_object_name = 'lista_podios'
     queryset = row
     template_name = 'podios.html'
+
+class ListaPremios(ListView):
+    
+    cursor = connection.cursor()
+    cursor.execute(''' SELECT nombre_premio, idTorneo, jugador.nombre, jugador.apellido, nombre_seleccion, posicion
+    FROM mundiales.premio INNER JOIN mundiales.jugador ON premio.idJugador = jugador.idJugador ''')
+    row = cursor.fetchall()
+
+    context_object_name = 'lista_premios'
+    queryset = row
+    template_name = 'premios.html'
+
+class Grupos(ListView):
+
+    cursor = connection.cursor()
+    cursor.execute(''' SELECT * FROM Mundiales.torneo''')
+    row = cursor.fetchall()
+
+    context_object_name = 'lista_mundiales'
+    queryset = row
+    template_name = 'grupos.html'
+
+class GruposMundial(TemplateView):
+    
+    template_name = 'gruposMundial.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        idTorneo = self.kwargs['idTorneo']
+
+        cursor = connection.cursor()
+        cursor.execute(''' SELECT * FROM (SELECT * FROM mundiales.grupo WHERE idTorneo = '{}') 
+        AS grupos INNER JOIN mundiales.seleccion ON grupos.idSeleccion = seleccion.idSeleccion '''.format(idTorneo))
+        lista_grupos = cursor.fetchall()
+        print(lista_grupos)
+
+        context['grupos'] = lista_grupos
+        return context

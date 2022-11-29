@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="margin: 40px;">
+    <h1 class="card-title"> Lista de Grupos de la FIFA</h1>
+    <table class="table table-striped table-bordered shadow-lg">
+        <thead>
+            <tr>
+                <th scope="col" style="color: #202124;">Grupo</th>
+                <th scope="col" style="color: #202124;">Nombre Etapa</th>
+                <th scope="col" style="color: #202124;">Selección</th>
+                <th scope="col" style="color: #202124;">Posición</th>
+                <th scope="col" style="color: #202124;">PJ</th>
+                <th scope="col" style="color: #202124;">PG</th>
+                <th scope="col" style="color: #202124;">PE</th>
+                <th scope="col" style="color: #202124;">PP</th>
+                <th scope="col" style="color: #202124;">GF</th>
+                <th scope="col" style="color: #202124;">GC</th>
+                <th scope="col" style="color: #202124;">DG</th>
+                <th scope="col" style="color: #202124;">Puntos</th>
+            </tr>
+        </thead>
+        {% for grupo in grupos %}
+        <tbody>
+            <tr>
+                <td>{{ grupo.3 }}</td>
+                <td>{{ grupo.2 }}</td>
+                <td><a href="{% url 'detalle_seleccion' grupo.1 grupo.5 %}" style="color: #8a1538">{{ grupo.15 }}</a></td>
+                <td>{{ grupo.4 }}</td>
+                <td>{{ grupo.6 }}</td>
+                <td>{{ grupo.7 }}</td>
+                <td>{{ grupo.8 }}</td>
+                <td>{{ grupo.9 }}</td>
+                <td>{{ grupo.10 }}</td>
+                <td>{{ grupo.11 }}</td>
+                <td>{{ grupo.12 }}</td>
+                <td>{{ grupo.13 }}</td>
+            </tr>
+        </tbody>
+        {% empty %}
+            <p>No Existen Datos Sobre La Fase De Grupo En Esta Edición Del Mundial</p>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
